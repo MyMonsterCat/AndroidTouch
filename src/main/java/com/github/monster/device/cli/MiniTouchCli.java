@@ -5,9 +5,9 @@ import com.android.ddmlib.AndroidDebugBridge;
 import com.android.ddmlib.IDevice;
 import com.android.ddmlib.TimeoutException;
 import com.github.monster.constant.Constants;
+import com.github.monster.device.DeviceWrapper;
 import com.github.monster.device.IDeviceHandler;
 import com.github.monster.device.size.IDeviceSize;
-import com.github.monster.device.DeviceWrapper;
 import com.github.monster.device.socket.PortManager;
 import com.github.monster.entity.Point;
 
@@ -15,6 +15,9 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.net.Socket;
 
+/**
+ * MiniTouch命令行工具
+ */
 public class MiniTouchCli implements IDeviceHandler {
 
     private static final byte[] COMMAND_COMMIT = "c\n".getBytes();

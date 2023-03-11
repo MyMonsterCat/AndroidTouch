@@ -1,6 +1,6 @@
 # DeviceTouch
 
-> 本项目参考了[MinicapAndTouch](https://github.com/bingosam/MinicapAndTouch/fork)，在此基础上对其进行了简单的修改，大致为：
+> 本项目参考了[MinicapAndTouch](https://github.com/bingosam/MinicapAndTouch/fork)，在此基础上对其进行了部分重构，大致为：
 >
 > - 添加简易文档说明
 > - 代码重构，添加类说明，优化日志描述，让阅读源代码更为简单

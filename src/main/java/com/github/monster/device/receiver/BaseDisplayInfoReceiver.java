@@ -5,12 +5,12 @@ import com.github.monster.entity.Size;
 import lombok.Getter;
 
 @Getter
-    public abstract class BaseDisplayInfoReceiver extends MultiLineReceiver {
+public abstract class BaseDisplayInfoReceiver extends MultiLineReceiver {
 
-        private final Size size = new Size();
+    private final Size size = new Size();
 
-        @Override
-        public boolean isCancelled() {
-            return size.isValid();
-        }
+    @Override
+    public boolean isCancelled() {
+        return size.isValid();
     }
+}

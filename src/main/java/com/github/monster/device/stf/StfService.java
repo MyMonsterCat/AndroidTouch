@@ -14,6 +14,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+
 @Slf4j
 public abstract class StfService implements IStfService {
 
@@ -54,7 +55,8 @@ public abstract class StfService implements IStfService {
                 log.info("start " + receiver.getServiceName());
                 device.getDevice().executeShellCommand(cmd, receiver, 0, TimeUnit.MILLISECONDS);
                 log.info(receiver.getServiceName() + " stopped .");
-            } catch (TimeoutException | AdbCommandRejectedException | ShellCommandUnresponsiveException | IOException e) {
+            } catch (TimeoutException | AdbCommandRejectedException | ShellCommandUnresponsiveException |
+                     IOException e) {
                 log.error("Failed to start " + receiver.getServiceName() + " service .", e);
             }
         });

@@ -4,13 +4,16 @@ import com.android.ddmlib.AdbCommandRejectedException;
 import com.android.ddmlib.AndroidDebugBridge;
 import com.android.ddmlib.ShellCommandUnresponsiveException;
 import com.android.ddmlib.TimeoutException;
+import com.github.monster.device.DeviceWrapper;
 import com.github.monster.device.IDeviceHandler;
 import com.github.monster.device.size.IDeviceSize;
-import com.github.monster.device.DeviceWrapper;
 import com.github.monster.entity.Point;
 
 import java.io.IOException;
 
+/**
+ * ADB命令行工具
+ */
 public class AdbCli implements IDeviceHandler {
 
     private final DeviceWrapper device;
