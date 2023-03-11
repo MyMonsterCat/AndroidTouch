@@ -8,7 +8,7 @@
 > - 添加一些自定义功能（如截图、裁剪图片等）
 > - 其他修改细节请见源码
 
-## 使用流程
+## 内部流程
 
 - 通过adb连接安卓设备.
 
@@ -36,9 +36,12 @@ mvn clean
 mvn install
 ```
 
+**另一种方式：在项目的 `/libs/jar-pack/`提供了打包好了的jar包，直接使用即可**
+
 4.在你自己的项目中引入坐标
 
 ```xml
+
 <dependency>
     <groupId>com.github.monster</groupId>
     <artifactId>device-touch</artifactId>
