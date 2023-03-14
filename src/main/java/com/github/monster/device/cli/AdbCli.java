@@ -39,7 +39,7 @@ public class AdbCli implements IDeviceHandler {
         Point real = convertToRealPoint(x, y);
 
         try {
-            if(point.equals(real)) {
+            if (point.equals(real)) {
                 device.tap(real.getX(), real.getY());
             } else {
                 doSwipe(point.getX(), point.getY(), real.getX(), real.getY(), 100);
@@ -64,6 +64,14 @@ public class AdbCli implements IDeviceHandler {
     @Override
     public String screenShot(String path) throws AdbCommandRejectedException, IOException, TimeoutException {
         return device.screenShot(path);
+    }
+
+    public void sendKeyEvent(int key) throws ShellCommandUnresponsiveException, AdbCommandRejectedException, IOException, TimeoutException {
+        device.sendKeyEvent(key);
+    }
+
+    public void sendText(String text) throws ShellCommandUnresponsiveException, AdbCommandRejectedException, IOException, TimeoutException {
+        device.sendText(text);
     }
 
     @Override

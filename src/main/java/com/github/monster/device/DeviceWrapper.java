@@ -14,6 +14,7 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.text.MessageFormat;
 
 @Getter
 @Slf4j
@@ -30,6 +31,11 @@ public class DeviceWrapper {
 
     public void sendKeyEvent(int value) throws TimeoutException, AdbCommandRejectedException, ShellCommandUnresponsiveException, IOException {
         String cmd = String.format("input keyevent %d", value);
+        device.executeShellCommand(cmd, NullOutputReceiver.getReceiver());
+    }
+
+    public void sendText(String text) throws TimeoutException, AdbCommandRejectedException, ShellCommandUnresponsiveException, IOException {
+        String cmd = MessageFormat.format("input text {0}", text);
         device.executeShellCommand(cmd, NullOutputReceiver.getReceiver());
     }
 
