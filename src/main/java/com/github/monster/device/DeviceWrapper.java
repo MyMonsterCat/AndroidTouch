@@ -10,6 +10,9 @@ import com.github.monster.entity.SizeUnmodifiable;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 
 @Getter
@@ -39,6 +42,19 @@ public class DeviceWrapper {
         String cmd = String.format("input swipe %d %d %d %d %d", x1, y1, x2, y2, duration);
         device.executeShellCommand(cmd, NullOutputReceiver.getReceiver());
     }
+
+    /**
+     * 截屏
+     *
+     * @param path 图片保存路径（PC上）
+     */
+    public String screenShot(String path) throws AdbCommandRejectedException, IOException, TimeoutException {
+        RawImage rawScreen = device.getScreenshot();
+        BufferedImage bufferedImage = rawScreen.asBufferedImage();
+        ImageIO.write(bufferedImage, "PNG", new File(path));
+        return path;
+    }
+
 
     private Size loadSize() throws Exception {
         BaseDisplayInfoReceiver receiver = new DumpsysDisplayReceiver();

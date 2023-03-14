@@ -62,6 +62,11 @@ public class AdbCli implements IDeviceHandler {
     }
 
     @Override
+    public String screenShot(String path) throws AdbCommandRejectedException, IOException, TimeoutException {
+        return device.screenShot(path);
+    }
+
+    @Override
     public IDeviceSize getDeviceSize() {
         return IDeviceSize;
     }

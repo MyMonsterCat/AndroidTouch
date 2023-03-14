@@ -28,8 +28,11 @@ public class MiniTouchCli implements IDeviceHandler {
 
     private final IDeviceSize IDeviceSize;
 
+    private DeviceWrapper device;
+
     public MiniTouchCli(DeviceWrapper device, IDeviceSize IDeviceSize, String socketName)
             throws AdbCommandRejectedException, IOException, TimeoutException {
+        this.device = device;
         this.IDeviceSize = IDeviceSize;
         int port = PortManager.createForward(device.getDevice(), Constants.BIN_MINITOUCH, socketName, IDevice.DeviceUnixSocketNamespace.ABSTRACT);
         Socket socket = new Socket("localhost", port);
@@ -58,6 +61,11 @@ public class MiniTouchCli implements IDeviceHandler {
         down(x1, y1);
         move(x2, y2);
         up(x2, y2);
+    }
+
+    @Override
+    public String screenShot(String path) throws AdbCommandRejectedException, IOException, TimeoutException {
+        return device.screenShot(path);
     }
 
     @Override
