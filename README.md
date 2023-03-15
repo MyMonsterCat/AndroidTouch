@@ -1,11 +1,13 @@
 # DeviceTouch
 
-> 本项目参考了[MinicapAndTouch](https://github.com/bingosam/MinicapAndTouch/fork)，在此基础上对其进行了部分重构，大致为：
+> 本项目参考了[MinicapAndTouch](https://github.com/bingosam/MinicapAndTouch/fork)，在此基础上对其进行了大量重构，大致为：
 >
-> - 添加简易文档说明
+> - 添加类和文档说明
 > - 代码重构，添加类说明，优化日志描述，让阅读源代码更为简单
-> - 去除minicap（**原因：自己项目中暂不需要此功能，不必要的性能浪费，故移除**）
-> - 添加一些自定义功能（如截图、裁剪图片等）
+> - 去除minicap以及stf.apk（**原因：自己项目中暂不需要此功能，不必要的性能浪费，故移除**）
+> - 添加一些自定义功能（如截图、裁剪图片、输入文字等）
+> - 纳入springboot容器管理
+> - 识别不同分辨率的设备
 > - 其他修改细节请见源码
 
 ## 内部流程
@@ -49,35 +51,11 @@ mvn install
 </dependency>
 ```
 
-5.将源代码`/lib`目录下的所有文件复制到自己项目中
+5.**将源代码`/lib`目录下的`/adb`和`/stf`中的文件复制到自己项目根目录下的`/lib`中**
 
-6.此处以springboot项目为例，复制到的路径为：根目录下的`/libs`目录
+<img src="./img/lib.jpg" style="zoom: 67%;" />
 
-```java
-// 纳入spring容器管理
-// 默认单例，仅创建一个连接
-@Configuration
-public class AdbConfig {
-
-    @Bean(destroyMethod = "close")
-    @SneakyThrows
-    public AdbCli getAdbCli() {
-        AndroidDebugBridge.init(false);
-      	// 此处的地址填写你刚刚的文件的地址
-        AndroidDebugBridge adb = AndroidDebugBridge.createBridge("./libs/adb/adb.exe", false);
-        while (!adb.hasInitialDeviceList()) {
-            Thread.sleep(500L);
-            System.out.println("wait for device connect...");
-        }
-        Thread.sleep(1000L);
-        DeviceWrapper device = new DeviceWrapper(adb.getDevices()[0]);
-                AdbCli adbCli = new AdbCli(device, new DefaultSize());
-        return adbCli;
-    }
-}
-```
-
-编写业务代码，此处为示例
+6.此处以springboot项目为例，编写代码进行测试
 
 ```java
 @Component
@@ -85,14 +63,28 @@ public class TestTap {
 
     @Resource
     private AdbCli adbCli;
+  
+    @Resource
+    private DeviceCli deviceCli;
     
     @SneakyThrows
-    public void tap(int x, int y) {
-        adbCli.down(800,450);
-        adbCli.up(800,450);
+    public void tap1(int x, int y) {
+        adbCli.down(x, y);
+        adbCli.up(x, y);
 
         System.out.println("被调用啦" + x + "," + y);
     }
+  
+    @SneakyThrows
+    public void tap2(int x, int y) {
+        deviceCli.touchDown(x, y);
+
+        deviceCli.touchUp(x, y);
+
+        System.out.println("被调用啦" + x + "," + y);
+    }
+  
+  
 }
 ```
 

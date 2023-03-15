@@ -23,6 +23,6 @@ public interface IDeviceHandler extends Closeable {
     IDeviceSize getDeviceSize();
 
     default Point convertToRealPoint(int x, int y) {
-        return new Point((int) (x / getDeviceSize().getScale()), (int) (y / getDeviceSize().getScale()));
+        return new Point((int) (x * getDeviceSize().getPercentX()), (int) (y * getDeviceSize().getPercentY()));
     }
 }

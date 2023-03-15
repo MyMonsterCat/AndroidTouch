@@ -22,7 +22,12 @@ public class DefaultSize implements IDeviceSize {
     }
 
     @Override
-    public double getScale() {
+    public double getPercentX() {
+        return 1;
+    }
+
+    @Override
+    public double getPercentY() {
         return 1;
     }
 }

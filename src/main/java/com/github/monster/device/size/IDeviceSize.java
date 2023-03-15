@@ -8,8 +8,8 @@ public interface IDeviceSize {
 
     Size getOutputSize();
 
-    /**
-     * output / real
-     */
-    double getScale();
+
+    double getPercentX();
+
+    double getPercentY();
 }

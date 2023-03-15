@@ -15,21 +15,20 @@ public class CommonDeviceSize implements IDeviceSize {
     private Size size;
     private Size outputSize;
 
-    private double scale;
+    private double percentX;
+
+    private double percentY;
 
     public CommonDeviceSize(DeviceWrapper device) {
-        new CommonDeviceSize(720, device);
+        new CommonDeviceSize(device, 1600, 900);
     }
 
-    public CommonDeviceSize(int maxHeight, DeviceWrapper device) {
+    public CommonDeviceSize(DeviceWrapper device, int weight, int height) {
         size = device.getSize();
-        if (maxHeight > 0 && size.getHeight() > maxHeight) {
-            scale = maxHeight * 1.0 / size.getHeight();
-            outputSize = new SizeUnmodifiable((int) (scale * size.getWidth()), maxHeight);
-        } else {
-            scale = 1;
-            outputSize = new SizeUnmodifiable(size);
-        }
+        percentX = weight / size.getWidth();
+        percentY = height / size.getHeight();
+
+        outputSize = new SizeUnmodifiable(new Size(weight, height));
     }
 
     @Override
@@ -43,7 +42,12 @@ public class CommonDeviceSize implements IDeviceSize {
     }
 
     @Override
-    public double getScale() {
-        return scale;
+    public double getPercentX() {
+        return percentX;
+    }
+
+    @Override
+    public double getPercentY() {
+        return percentY;
     }
 }
