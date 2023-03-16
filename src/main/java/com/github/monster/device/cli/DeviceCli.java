@@ -39,7 +39,7 @@ public class DeviceCli implements Closeable {
             IDeviceHandler = new MiniTouchCli(device, socket);
         } catch (Exception e) {
             log.error("无法启动miniTouch，改用adb进行操作", e);
-            IDeviceHandler = new AdbCli(device, new DefaultSize());
+            IDeviceHandler = new AdbCli(device, new DefaultSize(device));
         }
 
     }

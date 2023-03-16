@@ -8,6 +8,7 @@ import com.github.monster.constant.Constants;
 import com.github.monster.device.DeviceWrapper;
 import com.github.monster.device.IDeviceHandler;
 import com.github.monster.device.size.CommonDeviceSize;
+import com.github.monster.device.size.DefaultSize;
 import com.github.monster.device.size.IDeviceSize;
 import com.github.monster.device.socket.PortManager;
 import com.github.monster.entity.Point;
@@ -62,7 +63,11 @@ public class MiniTouchCli implements IDeviceHandler {
         }
         log.info("receive device info: {}", stringBuffer.toString());
         String[] split = stringBuffer.toString().split("[\n  ]");
-        return new CommonDeviceSize(device, Integer.parseInt(split[4]), Integer.parseInt(split[5]));
+        if (split.length <= 4) {
+            return new DefaultSize(device);
+        } else {
+            return new CommonDeviceSize(device, Integer.parseInt(split[4]), Integer.parseInt(split[5]));
+        }
     }
 
     @Override

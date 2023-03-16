@@ -49,7 +49,7 @@ public class AdbConfig {
 
         Thread.sleep(1000L);
         DeviceWrapper device = new DeviceWrapper(adb.getDevices()[0]);
-        AdbCli adbCli = new AdbCli(device, new DefaultSize());
+        AdbCli adbCli = new AdbCli(device, new DefaultSize(device));
         return adbCli;
     }
 

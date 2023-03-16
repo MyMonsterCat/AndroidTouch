@@ -1,6 +1,8 @@
 package com.github.monster.device.size;
 
+import com.github.monster.device.DeviceWrapper;
 import com.github.monster.entity.Size;
+import com.github.monster.entity.SizeUnmodifiable;
 
 /**
  * 默认设备规格
@@ -10,6 +12,13 @@ import com.github.monster.entity.Size;
  */
 public class DefaultSize implements IDeviceSize {
 
+    private Size size;
+    private Size outputSize;
+
+    public DefaultSize(DeviceWrapper device) {
+        size = device.getSize();
+        outputSize = new SizeUnmodifiable(device.getSize());
+    }
 
     @Override
     public Size getSize() {
