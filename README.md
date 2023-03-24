@@ -1,10 +1,11 @@
 # DeviceTouch
 
-> 本项目参考了[MinicapAndTouch](https://github.com/bingosam/MinicapAndTouch/fork)，在此基础上对其进行了大量重构，大致为：
+> 本项目参考了[MinicapAndTouch](https://github.com/bingosam/MinicapAndTouch/fork)，在此基础上对其进行了大量重构，并且添加了若干功能，大致为：
 >
 > - 添加类和文档说明
 > - 代码重构，添加类说明，优化日志描述，让阅读源代码更为简单
 > - 去除minicap以及stf.apk（**原因：自己项目中暂不需要此功能，不必要的性能浪费，故移除**）
+> - 添加**多指触控**操作
 > - 添加一些自定义功能（如截图、裁剪图片、输入文字等）
 > - 纳入springboot容器管理
 > - 识别不同分辨率的设备
@@ -16,7 +17,9 @@
 
 - 将minitouch部署到设备上
 
-- 开启minitouch服务并对安卓设备进行操作
+- 开启minitouch服务
+
+- 接收指令，对安卓设备进行操作
 
 ## 使用指引
 
@@ -104,6 +107,7 @@ public class TestTap {
 
 - [DeviceFarmer](https://github.com/DeviceFarmer)
 - [MinicapAndTouch](https://github.com/bingosam/MinicapAndTouch/fork)
+- [STF 框架之 minitouch 工具](https://testerhome.com/topics/4400)
 
 ## 开源许可
 
