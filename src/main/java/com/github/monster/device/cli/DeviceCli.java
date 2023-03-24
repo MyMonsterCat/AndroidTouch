@@ -95,6 +95,10 @@ public class DeviceCli implements Closeable {
         IDeviceHandler.screenShot(path);
     }
 
+    public void doubleFingerTouch(int x1, int y1, int x2, int y2, int x1Move, int y1Move, int x2Move, int y2Move) throws IOException {
+        IDeviceHandler.doubleFingerTouch(x1, y1, x2, y2, x1Move, y1Move, x2Move, y2Move);
+    }
+
     /**
      * 是否在使用miniTouch
      *

@@ -66,6 +66,11 @@ public class AdbCli implements IDeviceHandler {
         return device.screenShot(path);
     }
 
+    @Override
+    public void doubleFingerTouch(int x1, int y1, int x2, int y2, int x1Move, int y1Move, int x2Move, int y2Move) throws IOException {
+        // do nothing
+    }
+
     public void sendKeyEvent(int key) throws ShellCommandUnresponsiveException, AdbCommandRejectedException, IOException, TimeoutException {
         device.sendKeyEvent(key);
     }

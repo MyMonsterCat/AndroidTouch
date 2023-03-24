@@ -102,6 +102,45 @@ public class MiniTouchCli implements IDeviceHandler {
         return device.screenShot(path);
     }
 
+    /**
+     * 双指触控
+     *
+     * @param x1     第1根手指头x按下坐标
+     * @param y1     第1根手指头y按下坐标
+     * @param x2     第2根手指头x按下坐标
+     * @param y2     第2根手指头y按下坐标
+     * @param x1Move 第1根手指头x松开坐标
+     * @param y1Move 第1根手指头y松开坐标
+     * @param x2Move 第2根手指头x松开坐标
+     * @param y2Move 第2根手指头y松开坐标
+     * @throws IOException
+     */
+    public void doubleFingerTouch(int x1, int y1, int x2, int y2, int x1Move, int y1Move, int x2Move, int y2Move) throws IOException {
+        Point real1 = convertToRealPoint(x1, y1);
+        Point real2 = convertToRealPoint(x2, y2);
+        Point move1 = convertToRealPoint(x1Move, x1Move);
+        Point move2 = convertToRealPoint(x2Move, y2Move);
+
+        outputStream.write(String.format("d 0 %d %d 50\n", real1.getX(), real1.getY()).getBytes());
+        outputStream.write(String.format("d 1 %d %d 50\n", real2.getX(), real2.getY()).getBytes());
+        outputStream.write(COMMAND_COMMIT);
+        outputStream.flush();
+
+        outputStream.write(String.format("m 0 %d %d 50\n", move1.getX(), move1.getY()).getBytes());
+        outputStream.write(String.format("m 1 %d %d 50\n", move2.getX(), move2.getY()).getBytes());
+        outputStream.write(COMMAND_COMMIT);
+        outputStream.flush();
+
+        outputStream.write("u 0\n".getBytes());
+        outputStream.write("u 1\n".getBytes());
+        outputStream.write(COMMAND_COMMIT);
+        outputStream.flush();
+
+        log.debug("双指触控：第一个触摸点从{},{}移动到{},{}，第二个触摸点从{},{}移动到{},{}，",
+                real1.getX(), real1.getY(), move1.getX(), move1.getY(),
+                real2.getX(), real2.getY(), move2.getX(), move2.getY());
+    }
+
     @Override
     public IDeviceSize getDeviceSize() {
         return IDeviceSize;

@@ -20,6 +20,8 @@ public interface IDeviceHandler extends Closeable {
 
     String screenShot(String path) throws AdbCommandRejectedException, IOException, TimeoutException;
 
+    void doubleFingerTouch(int x1, int y1, int x2, int y2, int x1Move, int y1Move, int x2Move, int y2Move) throws IOException;
+
     IDeviceSize getDeviceSize();
 
     default Point convertToRealPoint(int x, int y) {
