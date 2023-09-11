@@ -8,6 +8,7 @@ import com.github.monster.device.size.DefaultSize;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
 
 /**
@@ -19,6 +20,7 @@ import org.springframework.context.annotation.Configuration;
 public class AdbConfig {
 
     @Bean(initMethod = "start", destroyMethod = "close")
+    @Conditional(deviceCliCondition.class)
     @SneakyThrows
     public DeviceCli deviceCli() {
         AndroidDebugBridge.init(false);
@@ -38,6 +40,7 @@ public class AdbConfig {
 
 
     @Bean(destroyMethod = "close")
+    @Conditional(adbCliCondition.class)
     @SneakyThrows
     public AdbCli adbCli() {
 

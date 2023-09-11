@@ -1,7 +1,5 @@
 package com.github.monster.device;
 
-import com.android.ddmlib.AdbCommandRejectedException;
-import com.android.ddmlib.TimeoutException;
 import com.github.monster.device.size.IDeviceSize;
 import com.github.monster.entity.Point;
 
@@ -18,7 +16,7 @@ public interface IDeviceHandler extends Closeable {
 
     void swipe(int x1, int y1, int x2, int y2, int duration) throws IOException;
 
-    String screenShot(String path) throws AdbCommandRejectedException, IOException, TimeoutException;
+    String screenShot(String path) throws Exception;
 
     void doubleFingerTouch(int x1, int y1, int x2, int y2, int x1Move, int y1Move, int x2Move, int y2Move) throws IOException;
 

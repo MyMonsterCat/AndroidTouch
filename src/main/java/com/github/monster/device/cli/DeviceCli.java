@@ -1,7 +1,5 @@
 package com.github.monster.device.cli;
 
-import com.android.ddmlib.AdbCommandRejectedException;
-import com.android.ddmlib.TimeoutException;
 import com.github.monster.device.DeviceWrapper;
 import com.github.monster.device.IDeviceHandler;
 import com.github.monster.device.size.DefaultSize;
@@ -91,7 +89,7 @@ public class DeviceCli implements Closeable {
         IDeviceHandler.swipe(x1, y1, x2, y2, duration);
     }
 
-    public void screenShot(String path) throws AdbCommandRejectedException, IOException, TimeoutException {
+    public void screenShot(String path) throws Exception {
         IDeviceHandler.screenShot(path);
     }
 

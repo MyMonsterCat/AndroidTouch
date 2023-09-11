@@ -6,7 +6,7 @@
 
     <groupId>com.github.monster</groupId>
     <artifactId>device-touch</artifactId>
-    <version>0.0.1</version>
+    <version>0.0.2</version>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -82,6 +82,33 @@
             <url>https://maven.google.com/</url>
         </repository>
     </repositories>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.2.4</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <createDependencyReducedPom>false</createDependencyReducedPom>
+                            <artifactSet>
+                                <!-- 捆绑包含,目标项目不需要再手动引用这个包了 -->
+                                <includes>
+                                    <include>com.android.tools.ddms:*</include>
+                                </includes>
+                            </artifactSet>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
 
 </project>

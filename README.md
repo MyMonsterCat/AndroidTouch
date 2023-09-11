@@ -54,7 +54,7 @@ mvn install
 </dependency>
 ```
 
-5.**将源代码`/lib`目录下的`/adb`和`/stf`中的文件复制到自己项目根目录下的`/lib`中**
+5.**将源代码`/libs`目录下的`/adb`和`/stf`中的文件复制到自己项目根目录下的`/lib`中**
 
 <img src="./img/lib.jpg" style="zoom: 67%;" />
 

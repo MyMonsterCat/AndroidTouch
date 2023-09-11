@@ -98,7 +98,7 @@ public class MiniTouchCli implements IDeviceHandler {
     }
 
     @Override
-    public String screenShot(String path) throws AdbCommandRejectedException, IOException, TimeoutException {
+    public String screenShot(String path) throws Exception {
         return device.screenShot(path);
     }
 
