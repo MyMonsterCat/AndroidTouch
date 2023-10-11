@@ -1,8 +1,5 @@
 package com.github.monster.device.stf;
 
-import com.android.ddmlib.AdbCommandRejectedException;
-import com.android.ddmlib.ShellCommandUnresponsiveException;
-import com.android.ddmlib.TimeoutException;
 import com.github.monster.concurrent.NamedThreadFactory;
 import com.github.monster.device.DeviceWrapper;
 import com.github.monster.device.receiver.BaseServiceReceiver;
@@ -55,8 +52,7 @@ public abstract class StfService implements IStfService {
                 log.info("start " + receiver.getServiceName());
                 device.getDevice().executeShellCommand(cmd, receiver, 0, TimeUnit.MILLISECONDS);
                 log.info(receiver.getServiceName() + " stopped .");
-            } catch (TimeoutException | AdbCommandRejectedException | ShellCommandUnresponsiveException |
-                     IOException e) {
+            } catch (Exception e) {
                 log.error("Failed to start " + receiver.getServiceName() + " service .", e);
             }
         });

@@ -19,41 +19,52 @@ import org.springframework.context.annotation.Configuration;
 @Slf4j
 public class AdbConfig {
 
+    private AndroidDebugBridge adb;
+
     @Bean(initMethod = "start", destroyMethod = "close")
     @Conditional(deviceCliCondition.class)
     @SneakyThrows
     public DeviceCli deviceCli() {
-        AndroidDebugBridge.init(false);
-        AndroidDebugBridge adb = AndroidDebugBridge.createBridge("./libs/adb/adb.exe", false);
-        while (!adb.hasInitialDeviceList()) {
-            Thread.sleep(500L);
-            log.info("wait for device connect...");
-        }
-
+        AndroidDebugBridge adb = getBridge();
         Thread.sleep(1000L);
         DeviceWrapper device = new DeviceWrapper(adb.getDevices()[0]);
-
         DeviceCli deviceCli = new DeviceCli(device);
         return deviceCli;
 
     }
 
-
     @Bean(destroyMethod = "close")
     @Conditional(adbCliCondition.class)
     @SneakyThrows
     public AdbCli adbCli() {
-
-        AndroidDebugBridge adb = AndroidDebugBridge.createBridge("./libs/adb/adb.exe", false);
-        while (!adb.hasInitialDeviceList()) {
-            Thread.sleep(500L);
-            log.info("wait for device connect...");
-        }
-
+        AndroidDebugBridge adb = getBridge();
         Thread.sleep(1000L);
         DeviceWrapper device = new DeviceWrapper(adb.getDevices()[0]);
         AdbCli adbCli = new AdbCli(device, new DefaultSize(device));
         return adbCli;
     }
+
+
+    private AndroidDebugBridge getBridge() throws Exception {
+        if (adb == null) {
+            AndroidDebugBridge.init(false);
+            String os = System.getProperty("os.name").toLowerCase();
+            if (os.startsWith("win")) {
+                // 如果是win系统
+                adb = AndroidDebugBridge.createBridge("./libs/adb/adb-win.exe", false);
+            } else if (os.startsWith("mac")) {
+                // 如果是osx系统
+                adb = AndroidDebugBridge.createBridge("./libs/adb/adb-mac", false);
+            } else {
+                adb = AndroidDebugBridge.createBridge("./libs/adb/adb-linux", true);
+            }
+            while (!adb.hasInitialDeviceList()) {
+                Thread.sleep(500L);
+                log.info("wait for device connect...");
+            }
+        }
+        return adb;
+    }
+
 
 }
