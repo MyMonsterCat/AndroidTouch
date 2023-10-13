@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.github.monster</groupId>
-    <artifactId>device-touch</artifactId>
+    <artifactId>AndroidTouch</artifactId>
     <version>0.0.3</version>
 
     <properties>
@@ -75,12 +75,12 @@
 
     </dependencies>
 
-<!--    <repositories>-->
-<!--        <repository>-->
-<!--            <id>google-maven</id>-->
-<!--            <url>https://maven.google.com/</url>-->
-<!--        </repository>-->
-<!--    </repositories>-->
+    <repositories>
+        <repository>
+            <id>google-maven</id>
+            <url>https://maven.google.com/</url>
+        </repository>
+    </repositories>
 
     <build>
         <plugins>

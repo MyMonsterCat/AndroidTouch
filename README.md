@@ -12,7 +12,7 @@
 ```xml
 <dependency>
     <groupId>com.github.monster</groupId>
-    <artifactId>device-touch</artifactId>
+  <artifactId>AndroidTouch</artifactId>
   <version>latest.version</version>
 </dependency>
 ```
@@ -22,7 +22,7 @@
 在你的项目中新建`/libs`目录，并通过下面的方式添加库文件
 
 - 方式一：下载项目，将源代码`/libs`目录下的`/adb`和`/stf`中的文件复制到自己项目根目录下的`/lib`中
-- 方式二：[下载最新版本：lib库文件](https://github.com/MyMonsterCat/DeviceTouch/releases)
+- 方式二：[下载最新版本：lib.zip](https://github.com/MyMonsterCat/DeviceTouch/releases)
 
 完成后如下所示：
 
