@@ -13,7 +13,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 @Slf4j
-class CliBeanConfigTest {
+class CliTest {
 
     private MiniTouchCli miniTouchCli;
     private AndroidDebugBridge adb;

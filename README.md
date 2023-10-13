@@ -1,116 +1,127 @@
-# DeviceTouch
+# AndroidTouch
 
-> 本项目参考了[MinicapAndTouch](https://github.com/bingosam/MinicapAndTouch/fork)，在此基础上对其进行了大量重构，并且添加了若干功能，大致为：
->
-> - 添加类和文档说明
-> - 代码重构，添加类说明，优化日志描述，让阅读源代码更为简单
-> - 去除minicap以及stf.apk（**原因：自己项目中暂不需要此功能，不必要的性能浪费，故移除**）
-> - 添加**多指触控**操作
-> - 添加一些自定义功能（如截图、裁剪图片、输入文字等）
-> - 纳入springboot容器管理
-> - 识别不同分辨率的设备
-> - 其他修改细节请见源码
+使用Java对Android设备进行模拟点击/触控，支持多平台(Mac、Windows、Linux)，支持多点触控
 
-## 内部流程
+## 🎉 快速开始
 
-- 通过adb连接安卓设备.
+### 1.引入jar包
 
-- 将minitouch部署到设备上
-
-- 开启minitouch服务
-
-- 接收指令，对安卓设备进行操作
-
-## 使用指引
-
-1.下载项目
-
-> git clone https://github.com/MyMonsterCat/DeviceTouch.git
-
-2.使用编辑器打开项目，等待拉取依赖。此处以IDEA为例：
-
-<img src="./img/project.jpg" style="zoom:50%;" />
-
-
-
-3.使用maven命令打包至本地仓库
-
-```
-mvn clean
-
-mvn install
-```
-
-**另一种方式：在项目的 `/libs/jar-pack/`提供了打包好了的jar包，直接使用即可**
-
-4.在你自己的项目中引入坐标
+- 方式一：下载项目自行打包
+- 方式二：[下载最新版本：jar包](https://github.com/MyMonsterCat/DeviceTouch/releases)
 
 ```xml
-
 <dependency>
     <groupId>com.github.monster</groupId>
     <artifactId>device-touch</artifactId>
-    <version>0.0.1</version>
+  <version>latest.version</version>
 </dependency>
 ```
 
-5.**将源代码`/libs`目录下的`/adb`和`/stf`中的文件复制到自己项目根目录下的`/lib`中**
+### 2.添加库文件
 
-<img src="./img/lib.jpg" style="zoom: 67%;" />
+在你的项目中新建`/libs`目录，并通过下面的方式添加库文件
 
-6.此处以springboot项目为例，编写代码进行测试
+- 方式一：下载项目，将源代码`/libs`目录下的`/adb`和`/stf`中的文件复制到自己项目根目录下的`/lib`中
+- 方式二：[下载最新版本：lib库文件](https://github.com/MyMonsterCat/DeviceTouch/releases)
+
+完成后如下所示：
+
+![示例图](./img/example.png)
+
+### 3.创建安卓设备
+
+- 通过AndroidStudio模拟一个设备
+- 通过USB连接你的安卓设备
+- PC安装模拟器，如[夜神模拟器](https://www.yeshen.com/)
+
+无论通过哪种方式，请确保开启开发者模式！！！
+
+### 4.启动
+
+#### 4.1 SpringBoot项目
+
+> 此种方式默认使用第一个设备
+
+**yaml添加配置**
+
+```yaml
+adb-loader:
+  # 通过minitTouch进行触控
+  minitTouch-cli: true
+  # 不使用原生adb指令
+  adb-cli: false
+```
+
+**编写代码测试**
 
 ```java
-@Component
-public class TestTap {
-
+public class TestCli {
     @Resource
-    private AdbCli adbCli;
-  
-    @Resource
-    private DeviceCli deviceCli;
-    
-    @SneakyThrows
-    public void tap1(int x, int y) {
-        adbCli.down(x, y);
-        adbCli.up(x, y);
-
-        System.out.println("被调用啦" + x + "," + y);
-    }
+    private MiniTouchCli minitTouchCli;
   
     @SneakyThrows
-    public void tap2(int x, int y) {
-        deviceCli.touchDown(x, y);
-
-        deviceCli.touchUp(x, y);
-
-        System.out.println("被调用啦" + x + "," + y);
+    public void attackCityStatistics() {
+        minitTouch.swipe(100, 100, 200, 200, 500);
     }
-  
-  
 }
 ```
 
-效果如下:
+效果如下
 
-<img src="./img/mock_tap.jpg" style="zoom: 25%;" />
+<img src="./img/mock_touch.png" style="zoom: 67%;" />
 
-## 使用限制
+#### 4.2 非springboot项目启动
 
-- [minitouch](https://github.com/DeviceFarmer/minitouch)支持Android9及以下版本
-- 仅限在**Windows**上进行使用
+请参考[测试类](https://github.com/MyMonsterCat/DeviceTouch/tree/main/src/test/java/com/github/monster/touch/config/CliTest.java)
+，自行编写
+
+## 🤔 运行流程
+
+![](./img/how.png)
+
+### miniTouchCli
+
+- PC通过adb连接安卓设备.
+
+- 安卓版本 > 9
+
+  - 将STFService部署到安卓设备
+  - 开启STFService后台运行（创建Socket服务）
+
+- 安卓版本 <= 9
+
+  - 将minitouch部署到安卓设备
 
 
+- 开启minitouch服务（创建Socket服务）
 
+- PC通过Socket与安卓进行通信，即接收指令，对安卓设备进行操作
 
-## 鸣谢
+### adbCli
+
+- PC通过adb连接安卓设备
+- 通过adb对安卓设备进行控制
+
+## 📌 TODO
+
+- [x] 添加**多指触控**操作
+- [x] 添加截图、裁剪图片、输入文字功能
+- [x] 纳入springboot容器管理
+- [x] 适配不同Android版本
+- [ ] 识别不同分辨率的设备
+
+## 🗣️ FAQ
+
+### 无法下载ddmlib
+
+在项目根目录[libs/ddmlib](https://github.com/MyMonsterCat/DeviceTouch/tree/main/libs/ddmlib)提供了ddmlib的jar包，自行下载并添加到项目库
+
+## 🙏 鸣谢
 
 - [DeviceFarmer](https://github.com/DeviceFarmer)
 - [MinicapAndTouch](https://github.com/bingosam/MinicapAndTouch/fork)
 - [STF 框架之 minitouch 工具](https://testerhome.com/topics/4400)
 
-## 开源许可
+## 🪪 开源许可
 
 使用 [Apache License 2.0](LICENSE)
-
-Copyright © The bingosam Project. All Rights Reserved.
