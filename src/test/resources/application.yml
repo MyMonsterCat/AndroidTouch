@@ -1,0 +1,10 @@
+server:
+  port: 20000
+
+# adb是否加载
+adb-loader:
+  minitTouch-cli: true
+  adb-cli: false
+
+
+
